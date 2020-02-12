@@ -1,13 +1,29 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import "~materialize-css/dist/css/materialize.min.css";
+
+.nav-wrapper {
+    padding-left: 20px;
+    padding-right: 10px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.btn {
+    margin-right: 10px;
+}
+
+.card {
+    background: #90caf92b;
+}
+
+.input-field:first-child {
+    margin-bottom: 50px;
+}
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.simple-captcha {
+    padding: 10px;
+    margin-bottom: 10px;
+    background: rgba(127, 255, 212, 0.28);
 }

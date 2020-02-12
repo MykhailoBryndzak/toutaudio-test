@@ -1,25 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect} from 'react';
+import "materialize-css";
+
+import {BrowserRouter} from "react-router-dom";
+
+import {useRoutes} from "./routes";
+import {useAuth} from "./hooks/auth.hook";
+import {AuthContext} from "./context/AuthContext";
+import {Navbar} from "./components/Navbar";
 
 function App() {
+  const {login, userId, register, logout, isAuthenticated, isAdmin} = useAuth();
+  const routes = useRoutes(isAuthenticated);
+
+  useEffect(() => {
+    const idAdmin = localStorage.getItem("admin@gmail.com");
+    if (!idAdmin) {
+      localStorage.setItem("admin@gmail.com", JSON.stringify({
+        email: "admin@gmail.com",
+        password: "admin",
+        role: "admin"
+      }))
+    }
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthContext.Provider value={{
+      login, logout, register, userId, isAuthenticated
+    }}>
+      <BrowserRouter>
+        <Navbar isAuthenticated={isAuthenticated} isAdmin={isAdmin}/>
+        <div className="container">
+          {routes}
+        </div>
+      </BrowserRouter>
+    </AuthContext.Provider>
   );
 }
 
