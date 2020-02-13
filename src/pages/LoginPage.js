@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../context/AuthContext";
 import {useHistory} from "react-router-dom";
+import {SimpleCaptcha} from "../components/SimpleCaptcha";
 
 export const LoginPage = () => {
   useEffect(() => {
@@ -15,13 +16,7 @@ export const LoginPage = () => {
     setFrom({...form, [event.target.name]: event.target.value})
   };
 
-  const changeHandlerCaptcha = event => {
-    if (event.target.value === "4") {
-      setIsDisabledLogin(false);
-    } else {
-      setIsDisabledLogin(true);
-    }
-  };
+
 
   const loginHandler = () => {
     auth.login(form.email, form.password, () => history.push("/user"))
@@ -59,14 +54,7 @@ export const LoginPage = () => {
             </div>
           </div>
           <div className="card-action">
-            <div className="simple-captcha">
-              <p>simple captcha</p>
-              <span>2+2</span>
-              <input
-                type="text"
-                onChange={changeHandlerCaptcha}
-              />
-            </div>
+            <SimpleCaptcha setIsDisabledLogin={setIsDisabledLogin}/>
             <button
               disabled={isDisabledLogin}
               className="btn"
