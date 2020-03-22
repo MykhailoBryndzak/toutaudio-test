@@ -1,22 +1,21 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useDebugValue, useEffect, useState} from "react";
 import {AuthContext} from "../context/AuthContext";
 import {useHistory} from "react-router-dom";
 import {SimpleCaptcha} from "../components/SimpleCaptcha";
 
 export const LoginPage = () => {
-  useEffect(() => {
-    window.M.updateTextFields();
-  }, []);
   const auth = useContext(AuthContext);
   const [form, setFrom] = useState({email: "", password: ""});
   const [isDisabledLogin, setIsDisabledLogin] = useState(true);
   const history = useHistory();
+  
+  useEffect(() => {
+    window.M.updateTextFields();
+  }, [auth, form, history]);
 
   const changeHandler = event => {
     setFrom({...form, [event.target.name]: event.target.value})
   };
-
-
 
   const loginHandler = () => {
     auth.login(form.email, form.password, () => history.push("/user"))
